@@ -23,20 +23,11 @@ function showRandomQuote() {
    quoteDisplay.appendChild(quotePara);
    quoteDisplay.appendChild(categoryPara);
 
-     // Create the form element
-     const form = document.createElement('form');
-     form.id = 'addQuoteForm';
-     
-     //append input to form
-     form.appendChild(quoteInput);
-     form.appendChild(quoteCategoryInput)
 
 }
-
 // Add quote function
 function createAddQuoteForm() {
-    const quoteText = quoteInput.value.trim();
-    const categoryText = quoteCategoryInput.value.trim();
+   
 
     // Check if both fields are filled out
     if (quoteText && categoryText) {
@@ -46,5 +37,41 @@ function createAddQuoteForm() {
             category: categoryText
         }
     }
+
+         // Create the form element
+         const form = document.createElement('form');
+         form.id = 'addQuoteForm';
+         
+         //append input to form
+         form.appendChild(quoteInput);
+         form.appendChild(quoteCategoryInput)
+    
+    
 }
+
+
+ // Add an event listener for form submission
+ form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get the values from the form inputs
+    const quoteText = quoteInput.value.trim();
+    const categoryText = quoteCategoryInput.value.trim();
+
+    // Only add a new quote if both fields are filled
+    if (quoteText && categoryText) {
+        // Create a new quote object and add it to the array
+        const newQuote = { text: quoteText, category: categoryText };
+        quotes.push(newQuote);
+
+        // Reset the form fields
+        quoteText.value = '';
+        categoryText.value = '';
+
+        // Optionally, show the newly added quote or a success message
+        alert('New quote added successfully!');
+    } else {
+        alert('Please fill in both fields.');
+    }
+});
 
