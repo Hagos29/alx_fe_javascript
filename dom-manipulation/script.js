@@ -14,14 +14,14 @@ const quotes = {
 }
 
 
-function ShowRandomQuote() {
+function showRandomQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
     document.getElementById("quote").innerHTML = randomQuote;
 
 }
 
-ShowRandomQuote();
+showRandomQuote();
 
 function createAddQuoteForm() {
     const quoteText = quoteInput.value.trim();
