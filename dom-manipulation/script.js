@@ -51,7 +51,7 @@ function createAddQuoteForm() {
 
 
  // Add an event listener for form submission
- form.addEventListener('submit', function(event) {
+ showNewQuoteBtn.addEventListener('submit', function(event) {
     event.preventDefault();
 
     // Get the values from the form inputs
