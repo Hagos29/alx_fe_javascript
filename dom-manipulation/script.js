@@ -46,8 +46,8 @@ function createAddQuoteForm() {
     ul.appendChild(newCategoryText);
 
         // Get quotes from localStorage
-        const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
-        
+        const storedQuotes = JSON.parse(localStorage.setItem('quotes')) || [];
+
   }
 }
 
