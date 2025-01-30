@@ -19,7 +19,8 @@ showRandomQuote();
 function createAddQuoteForm() {
   const quoteText = quoteInput.value.trim();
   const categoryText = categoryInput.value.trim();
-  
+// Get quotes from localStorage
+ const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
 // Check if both fields are filled out
   if (quoteText && categoryInput) {
     const quotes = {
