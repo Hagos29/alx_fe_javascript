@@ -46,6 +46,12 @@ function createAddQuoteForm() {
     ul.appendChild(newQuoteText);
     ul.appendChild(newCategoryText);
 
+     const blob = new Blob( [ data ], {
+        type: "application/json;charset=utf-8"})
+
+    // Save updated quotes to local storage without using JSON.stringify
+  localStorage.setItem('quotes', JSON.stringify(quotes));
+
         // Get quotes from localStorage
         const storedQuotes = JSON.parse(localStorage.setItem('quotes')) || [];
 
@@ -54,3 +60,15 @@ function createAddQuoteForm() {
 
 const button = document.querySelector('button[onclick="addQuote()"]');
 button.addEventListener("click", createAddQuoteForm());
+
+
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+      const importedQuotes = JSON.parse(event.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+  }
