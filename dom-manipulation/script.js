@@ -107,8 +107,11 @@ function populateCategories() {
 }
 
 // Function to fetch data
-function fetchData() {
-  fetch('https://jsonplaceholder.typicode.com/posts')
+async function name(params) {
+  
+}
+async function fetchData() {
+  const dataFectched = await fetch('https://jsonplaceholder.typicode.com/posts')
     .then(response => response.json())
     .then(data => {
       console.log('Fetched data:', data);
