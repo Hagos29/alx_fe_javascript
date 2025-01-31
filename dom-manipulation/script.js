@@ -81,15 +81,6 @@ function importFromJsonFile(event) {
     fileReader.readAsText(event.target.files[0]);
   }
 
-  // Sample quotes array with categories
-const quotes = [
-  { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde", category: "Life" },
-  { text: "In the end, we will remember not the words of our enemies, but the silence of our friends.", author: "Martin Luther King Jr.", category: "Friendship" },
-  { text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", author: "Ralph Waldo Emerson", category: "Life" },
-  { text: "The best way to predict the future is to create it.", author: "Abraham Lincoln", category: "Inspiration" },
-  { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau", category: "Success" },
-  // More quotes...
-];
 
 // Function to populate the dropdown with unique categories
 function populateCategories() {
@@ -115,9 +106,76 @@ function populateCategories() {
   });
 }
 
+// Function to fetch data
+function fetchData() {
+  fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Fetched data:', data);
+      // Here, you can update your UI with the fetched data.
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+}
+
+// Call the fetchData function every 5 seconds (5000ms)
+setInterval(fetchData, 5000);
 
 
+// Function to fetch new quotes and resolve conflicts
+function fetchAndResolveQuotes() {
+  fetch('https://jsonplaceholder.typicode.com/posts') // Simulating quotes as titles of posts
+    .then(response => response.json())
+    .then(data => {
+      // Extract the quote data (titles of posts will be treated as quotes)
+      const newQuotes = data.map(post => post.title);
+      console.log('New quotes fetched from server:', newQuotes);
 
+      // Get the existing quotes from localStorage (or an empty array if none exists)
+      let existingQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+
+      // Use a Set to store unique quotes to avoid duplicates
+      const updatedQuotes = new Set(existingQuotes);
+
+      // Add the new quotes from the server
+      newQuotes.forEach(quote => {
+        updatedQuotes.add(quote);  // Add the new quote to the updated quotes
+      });
+
+      // Convert the Set back to an array and update localStorage
+      localStorage.setItem('quotes', JSON.stringify(Array.from(updatedQuotes)));
+
+      // Optional: Log the updated quotes in localStorage
+      console.log('Updated quotes in localStorage:', Array.from(updatedQuotes));
+    })
+    .catch(error => {
+      console.error('Error fetching quotes:', error);
+    });
+}
+
+// Periodically fetch new quotes every 10 seconds (10000ms)
+const intervalId = setInterval(fetchAndResolveQuotes, 10000);
+
+// Stopping after 1 minute to prevent infinite fetching
+setTimeout(() => {
+  clearInterval(intervalId);
+  console.log('Stopped periodic quote fetching');
+}, 60000); // Stops after 60 seconds
+
+
+// Function to show a notification
+function showNotification(message, type = 'info') {
+  const notificationElement = document.getElementById('notification');
+  notificationElement.innerText = message;
+  notificationElement.style.backgroundColor = type === 'info' ? '#4CAF50' : '#f44336'; // Green for info, Red for conflict
+  notificationElement.style.display = 'block';
+
+  // Hide the notification after 3 seconds
+  setTimeout(() => {
+    notificationElement.style.display = 'none';
+  }, 3000);
+}
 
 // Function to populate the dropdown with unique categories
 function populateCategories() {
