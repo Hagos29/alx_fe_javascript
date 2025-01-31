@@ -124,7 +124,7 @@ setInterval(fetchData, 5000);
 
 
 // Function to fetch new quotes and resolve conflicts
-function fetchAndResolveQuotes() {
+function fetchQuotesFromServer() {
   fetch('https://jsonplaceholder.typicode.com/posts') // Simulating quotes as titles of posts
     .then(response => response.json())
     .then(data => {
