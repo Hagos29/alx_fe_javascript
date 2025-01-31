@@ -232,3 +232,24 @@ function filterQuotes() {
 }
 // Call the function to populate the dropdown (e.g., when the page loads)
 populateCategories();
+
+function postUpdatedData(newQuotes) {
+  const updatedData = { quotes: newQuotes };
+
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData), // Send the updated quotes as JSON
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Server responded with:', data);
+      showNotification('Server updated with new quotes!', 'info');
+    })
+    .catch(error => {
+      console.error('Error posting data:', error);
+      showNotification('Error updating server data.', 'error');
+    });
+}
