@@ -246,7 +246,7 @@ function postUpdatedData(newQuotes) {
     .then(response => response.json())
     .then(data => {
       console.log('Server responded with:', data);
-      showNotification('Server updated with new quotes!', 'info');
+      showNotification('Quotes synced with server!', 'info');
     })
     .catch(error => {
       console.error('Error posting data:', error);
