@@ -216,15 +216,15 @@ function filterQuotes() {
   // Display the filtered quotes
   if (filteredQuotes.length > 0) {
     filteredQuotes.forEach(quote => {
-      const quoteElement = document.createElement('div');
-      quoteElement.classList.add('quote');
-      quoteElement.innerHTML = `
+      const syncQuotes = document.createElement('div');
+      syncQuotes.classList.add('quote');
+      syncQuotes.innerHTML = `
       const storedPopulatedQuote = localStorage.setItem('selectedCategory);
         <p><strong>${quote.text}</strong></p>
         <p>- ${quote.author}</p>
         <p><em>Category: ${quote.category}</em></p>
       `;
-      quotesContainer.appendChild(quoteElement);
+      quotesContainer.appendChild(syncQuotes);
     });
   } else {
     quotesContainer.innerHTML = '<p>No quotes found for this category.</p>';
